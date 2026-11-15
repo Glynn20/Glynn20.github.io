@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bumpr: Post Mortem</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #0e0e10;
+  --card: #17171a;
+  --border: #2c2c32;
+  --text: #dcdce0;
+  --accent: #e5405e;
+  --link: #5eead4;
+  --body-size: 1.05rem;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Whois Mono", Whoismono, "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--body-size);
+  line-height: 1.7;
+  letter-spacing: 0.015em;
+  padding: calc(env(safe-area-inset-top, 0px) + 56px) 20px calc(env(safe-area-inset-bottom, 0px) + 56px);
+}
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 44px 40px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+h1 { margin: 0 0 40px; font-size: 2.1rem; font-weight: 600; line-height: 1.25; text-align: left; }
+h2 { margin: 56px 0 14px; padding-top: 28px; border-top: 1px solid var(--border); font-size: 1.55rem; font-weight: 600; line-height: 1.3; }
+h1 + h2 { margin-top: 0; padding-top: 0; border-top: 0; }
+h1, h2, h3, strong { color: #eeeef1; }
+h3 { margin: 36px 0 10px; font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+h2 + h3 { margin-top: 20px; }
+p { margin: 0; font-size: var(--body-size); }
+p + p { margin-top: 12px; }
+.label { font-weight: 600; }
+.right { color: var(--link); }
+.wrong { color: var(--accent); }
+.area p.label { margin-top: 20px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.area p.label + p { margin-top: 2px; }
+strong { font-weight: 600; }
+ul, ol { margin: 6px 0 0; padding-left: 1.4em; }
+li { margin-top: 8px; }
+li::marker { color: #8a8a92; }
+li > ul { margin-top: 6px; }
+.area p.label + ul, .area p.label + p { margin-top: 8px; }
+@media (max-width: 639px) { .container { padding: 28px 20px; } h1 { font-size: 1.7rem; } h2 { font-size: 1.4rem; margin-top: 44px; } h3 { font-size: 1.2rem; } }
+</style>
+</head>
+<body>
+<main class="container">
+  <h1>Bumpr: Post Mortem</h1>
+
+  <h2>Executive Summary</h2>
+  <ul>
+    <li><strong>What:</strong> a difficult, mouse-only precision platformer</li>
+    <li><strong>Scope:</strong> built solo in roughly 90 hours; released on Itch.io in September 2026</li>
+    <li><strong>Unique selling point:</strong> mouse-driven movement as the core mechanic, paired with a steep learning curve
+      <ul><li>Sets Bumpr apart from the many D-pad platformers in a saturated, highly competitive market</li></ul>
+    </li>
+  </ul>
+
+  <h2>What Went Right vs. What Went Wrong</h2>
+
+  <section class="area">
+    <h3>Scope &amp; Design</h3>
+    <p class="label right">What Went Right</p>
+    <ul>
+      <li>Focused on refining a single core mechanic
+        <ul>
+          <li>Other mechanics were included only if they interacted with movement in a unique way and were fun. Examples:
+            <ul>
+              <li><strong>Kept:</strong> breakable walls added complexity to movement and level design and felt satisfying
+                <ul><li>Players slam into them repeatedly</li></ul>
+              </li>
+              <li><strong>Scrapped:</strong> the “Sleepers” (purple enemies)
+                <ul>
+                  <li>Forcing players to sneak past them broke the pacing</li>
+                  <li>Conflicted with the goal of finishing fast for a high rank</li>
+                  <li>User feedback indicated it wasn’t fun</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p class="label wrong">What Went Wrong</p>
+    <ul>
+      <li>Too many mechanics were introduced without an on-ramp</li>
+      <li>Most common feedback: the difficulty curve spiked too quickly and checkpoints were too sparse</li>
+      <li>Hard to tell whether frustration came from well-balanced levels or from poor UX</li>
+    </ul>
+  </section>
+
+  <section class="area">
+    <h3>Scope Control</h3>
+    <p class="label right">What Went Right</p>
+    <ul>
+      <li>Defined a written MVP and checked every new idea against it</li>
+      <li>Kept an anti-feature list to stay focused on the core experience</li>
+      <li>Parked big ideas (e.g., harder level variations) in a backlog</li>
+      <li>Treated the project as explicitly not a passion project
+        <ul><li>Made it easier to cut ideas I’d grown attached to</li></ul>
+      </li>
+    </ul>
+    <p class="label wrong">What Went Wrong</p>
+    <ul>
+      <li>Over-engineered a modular state machine to track player states by movement speed
+        <ul>
+          <li>One or two simple scripts would have done</li>
+          <li>Built on a “what if I need it later?” mindset; spent days on a system that was never used</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="area">
+    <h3>Architecture</h3>
+    <p class="label right">What Went Right</p>
+    <ul>
+      <li>ScriptableObject GameEvent architecture, adopted early
+        <ul><li>Gave decoupled code and flexible runtime communication</li></ul>
+      </li>
+      <li>Object pooling for audio, particles and projectiles
+        <ul><li>Removed stutter during rapid wall bounces</li></ul>
+      </li>
+      <li>ScriptableObjects for level data
+        <ul><li>Made it easy to tune par times from playtest data</li></ul>
+      </li>
+    </ul>
+    <p class="label wrong">What Went Wrong</p>
+    <ul>
+      <li>Large stretches of programming-only work made progress feel intangible and stifled momentum</li>
+    </ul>
+  </section>
+
+  <section class="area">
+    <h3>Process &amp; Motivation</h3>
+    <p class="label right">What Went Right</p>
+    <ul>
+      <li>Trello board with clear “next step” tasks and short-timeframe milestones
+        <ul><li>Kept progress visible and motivation steady</li></ul>
+      </li>
+    </ul>
+    <p class="label wrong">What Went Wrong</p>
+    <ul>
+      <li>Self-doubt and perfectionism led to bursts of productivity followed by waves of procrastination</li>
+      <li>Almost every area (sprite tiling, animation, audio) was new to me
+        <ul><li>Great for learning, but it created friction and overwhelm</li></ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="area">
+    <h3>Art &amp; Audio</h3>
+    <p class="label right">What Went Right</p>
+    <ul><li>First-pass audio and sprites were highly motivating and made progress tangible</li></ul>
+    <p class="label wrong">What Went Wrong</p>
+    <ul><li>Added art and placeholder audio too late</li></ul>
+  </section>
+
+  <section class="area">
+    <h3>Marketing &amp; Reach</h3>
+    <p class="label right">What Went Right</p>
+    <ul><li>N/A</li></ul>
+    <p class="label wrong">What Went Wrong</p>
+    <ul>
+      <li>Neglected marketing: devlogs, short-form content and streamer outreach are invaluable in a space that depends on virality</li>
+      <li>Playtesting, outreach and accessibility were also neglected
+        <ul><li>Accessibility was rushed at the end</li></ul>
+      </li>
+    </ul>
+  </section>
+
+  <h2>Key Takeaways</h2>
+  <p>If I started again, I would:</p>
+  <ol>
+    <li><strong>Make it work first, even if it’s hardcoded.</strong>
+      <ul><li>Over-engineering isn’t worth it if the core loop turns out not to be fun</li></ul>
+    </li>
+    <li><strong>Iterate on art and sound throughout.</strong>
+      <ul><li>Visible progress is vital for staying motivated</li></ul>
+    </li>
+    <li><strong>Invest more in marketing (Shorts, TikTok, Discord, Reddit, etc.).</strong>
+      <ul><li>Virality is one of the most effective ways to gain exposure</li></ul>
+    </li>
+  </ol>
+</main>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Glynn Nguyen | Game Developer</title>
+<meta name="description" content="Portfolio of Glynn Nguyen, game developer.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #0e0e10;
+  --card: #17171a;
+  --border: #2c2c32;
+  --text: #dcdce0;
+  --muted: #b0b0b8;
+  --accent: #e5405e;
+  --link: #5eead4;
+  --body-size: 1.05rem;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Whois Mono", Whoismono, "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--body-size);
+  line-height: 1.6;
+  letter-spacing: 0.015em;
+  padding: calc(env(safe-area-inset-top, 0px) + 56px) 20px calc(env(safe-area-inset-bottom, 0px) + 56px);
+}
+a { color: inherit; text-decoration: none; }
+a:hover, button.link:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* Hero */
+.hero { max-width: 960px; margin: 0 auto 64px; text-align: center; }
+h1 { margin: 0 0 20px; font-size: clamp(1.9rem, 4.4vw, 2.65rem); font-weight: 600; letter-spacing: 0.005em; line-height: 1.2; }
+.hero h1 { color: #eeeef1; }
+.summary {
+  margin: 0 auto 24px;
+  max-width: 640px;
+  padding: 0;
+  color: var(--muted);
+  text-align: center;
+}
+.contact { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.contact span.label { color: var(--muted); }
+.contact a, button.link { color: var(--link); }
+.cta { max-width: 960px; margin: 28px auto 0; color: var(--accent); font-size: 1.2rem; font-weight: 700; line-height: 1.4; }
+button.link {
+  background: none; border: 0; padding: 0; margin: 0;
+  font: inherit; cursor: pointer; text-align: center;
+}
+
+/* Grid */
+.grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  width: 100%;
+  gap: 24px;
+}
+@media (min-width: 640px)  { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } .card { grid-column: span 2; } .card:first-child:nth-last-child(2) { grid-column: 2 / span 2; } }
+
+.card {
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: var(--body-size);
+}
+@media (max-width: 639px) { .card { aspect-ratio: auto; } }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: var(--body-size); }
+.head-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.play { display: inline-block; white-space: nowrap; padding: 2px 14px; border: 1.5px solid var(--accent); border-radius: 8px; background: transparent; color: var(--accent); font-size: var(--body-size); font-weight: 700; line-height: 1.5; }
+.play:hover { background: var(--accent); color: #fff; text-decoration: none; }
+.card-head .title { font-weight: 700; margin: 0; font-size: inherit; min-width: 0; overflow-wrap: anywhere; }
+.card-head .sub { color: var(--muted); text-align: right; }
+.thumb { display: block; padding: 0 12px; }
+.thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); background: #0c0c0e; }
+.callout { margin: 0; color: var(--muted); font-weight: 500; }
+.desc { margin: 0; color: var(--text); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
+.tags li { padding: 2px 10px; border-radius: 999px; font-size: 0.88rem; font-weight: 600; color: #15101f; }
+.links { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.links a { color: var(--link); }
+.tag-unity{background:#c9b6f5}.tag-csharp{background:#ffb877}.tag-godot{background:#8fc7ff}
+.tag-gdscript{background:#9be3b0}.tag-cpp{background:#f4a6c0}.tag-unreal{background:#d0d4dc}.tag-blender{background:#ffd37a}.tag-default{background:#a8e6e0}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Glynn Nguyen | Game Developer</h1>
+  <p class="summary">Game developer with hands-on experience building small-scope games solo. Familiar with the full production pipeline, with specific interests in systems architecture, level design, and creating novel mechanics.</p>
+  <div class="contact">
+    <span><span class="label">github:</span> <a href="https://github.com/Glynn20" rel="noopener">@Glynn20</a></span>
+    <span><span class="label">email:</span> <button type="button" class="link" id="email" aria-label="Copy email address to clipboard">glynn (dot) nguyen [at] gmail (dot) com</button></span>
+    <span class="sr" id="status" role="status" aria-live="polite" style="position:absolute;left:-9999px"></span>
+  </div>
+  <p class="cta">Open to game development roles. Let’s build something players remember.</p>
+</header>
+
+<main>
+  <section class="grid" id="projects" aria-label="Projects"></section>
+</main>
+
+<script>
+// ---- Edit your projects here -------------------------------------------
+// image: replace with a path/URL to your screenshot. url: where the image links.
+// playUrl: where the Play button links (defaults to url). playLabel: optional button text (defaults to "Play").
+const projects = [
+  { title: "Bumpr", sub: "Itch.io", url: "#", image: "", playUrl: "https://glynn20.itch.io/bumpr",
+    callout: "Mouse-Only precision platformer.",
+    desc: "Answers the question of “What if I turned Scary Maze into a brutally difficult 2D platformer?” Players navigate progressively harder linear levels. Levels consist of obstacles that test cursor control, precision, speed, and timing. Leans in on difficulty and replayability, with rankings awarded based on completion time. The cursor-exclusive input method serves as the hook. Almost all skill-based platformers rely on D-pad controls.",
+    tags: ["Unity2D", "C#"],
+    links: [{ label: "Post Mortem", href: "bumpr-post-mortem.html", external: true }, { label: "GitHub Source", href: "https://github.com/Glynn20/Bumpr", external: true }] },
+  { title: "36-break", sub: "Itch.io", url: "#", image: "",
+    callout: "AimLabs meets quick maths.",
+    desc: "[Under early active development].",
+    tags: ["Unity", "C#"],
+    links: [{ label: "GitHub Source", href: "https://github.com/Glynn20", external: true }] }
+];
+const tagClass = { "unity2d":"unity","unity":"unity","c#":"csharp","godot":"godot","gdscript":"gdscript","c++":"cpp","unreal":"unreal","blender":"blender" };
+
+function placeholder(t) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360"><rect width="640" height="360" fill="#222226"/><text x="320" y="188" fill="#8a8a92" font-family="sans-serif" font-size="26" text-anchor="middle">${t} screenshot</text></svg>`;
+  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+}
+function esc(s) { return s.replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c])); }
+
+document.getElementById("projects").innerHTML = projects.map(p => `
+  <article class="card">
+    <div class="card-head"><h2 class="title">${esc(p.title)}</h2><div class="head-right"><span class="sub">${esc(p.sub)}</span><a class="play" href="${p.playUrl || p.url}" target="_blank" rel="noopener">${esc(p.playLabel || "Play")}</a></div></div>
+    <a class="thumb" href="${p.url}" target="_blank" rel="noopener" aria-label="Open ${esc(p.title)}">
+      <img src="${p.image || placeholder(esc(p.title))}" alt="${esc(p.title)} gameplay screenshot" loading="lazy">
+    </a>
+    <p class="callout">${esc(p.callout)}</p>
+    <p class="desc">${esc(p.desc)}</p>
+    <ul class="tags">${p.tags.map(t => `<li class="tag-${tagClass[t.toLowerCase()] || "default"}">${esc(t)}</li>`).join("")}</ul>
+    <div class="links">${p.links.map(l => `<a href="${l.href}"${l.external ? ' target="_blank" rel="noopener"' : ""}>${esc(l.label)}</a>`).join("")}</div>
+  </article>`).join("");
+
+// ---- Copy email --------------------------------------------------------
+const EMAIL = "glynn.nguyen@gmail.com";
+const btn = document.getElementById("email");
+const status = document.getElementById("status");
+const original = btn.textContent;
+let timer;
+async function copy() {
+  try { await navigator.clipboard.writeText(EMAIL); }
+  catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = EMAIL; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (_) {}
+    ta.remove();
+  }
+  btn.textContent = "Copied!";
+  status.textContent = "Email address copied to clipboard";
+  clearTimeout(timer);
+  timer = setTimeout(() => { btn.textContent = original; status.textContent = ""; }, 1600);
+}
+btn.addEventListener("click", copy);
+</script>
+</body>
+</html>
