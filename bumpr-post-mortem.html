@@ -60,10 +60,15 @@ li { margin-top: 8px; }
 li::marker { color: #8a8a92; }
 li > ul { margin-top: 6px; }
 .area p.label + ul, .area p.label + p { margin-top: 8px; }
+.topbar { max-width: 800px; margin: 0 auto 16px; }
+.back { display: inline-block; padding: 2px 14px; border: 1.5px solid var(--link); border-radius: 8px; color: var(--link); font-size: var(--body-size); font-weight: 700; line-height: 1.5; text-decoration: none; }
+.back:hover { background: var(--link); color: #0e0e10; }
+.back:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 @media (max-width: 639px) { .container { padding: 28px 20px; } h1 { font-size: 1.7rem; } h2 { font-size: 1.4rem; margin-top: 44px; } h3 { font-size: 1.2rem; } }
 </style>
 </head>
 <body>
+<div class="topbar"><a class="back" href="index.html">← Back to home</a></div>
 <main class="container">
   <h1>Bumpr: Post Mortem</h1>
 
